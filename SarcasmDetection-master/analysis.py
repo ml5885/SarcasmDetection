@@ -44,8 +44,8 @@ print('scoring')
 score = model.score(x_test, list(y_test))
 print('Accuracy for {} data: {:.4f}'.format('sarcasm', score))
 
-pickle.dump(model, open("models/models.pkl", "wb"))
-pickle.dump(vectorizer, open("models/vectorizer.pkl", "wb"))
+pickle.dump(model, open("models/models_50k.pkl", "wb"))
+pickle.dump(vectorizer, open("models/vectorizer_50k.pkl", "wb"))
 
 sent = "I don’t believe in plastic surgery. But in your case, go ahead"
 vect_sent = vectorizer.transform([sent])

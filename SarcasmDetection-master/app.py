@@ -17,8 +17,8 @@ from sklearn.pipeline import make_pipeline
 app = flask.Flask(__name__, template_folder='static')
 app.config.from_object(__name__)
 
-model = pickle.load(open("models/models.pkl", "rb"))
-vectorizer = pickle.load(open("models/vectorizer.pkl", "rb"))
+model = pickle.load(open("models/models_50k.pkl", "rb"))
+vectorizer = pickle.load(open("models/vectorizer_50k.pkl", "rb"))
 pipeline = make_pipeline(vectorizer, model)
 
 def predict(message):    
