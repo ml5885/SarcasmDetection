@@ -26,7 +26,7 @@ df['comment'] = df['comment'].map(lambda x: re.sub(r'\d+\w*|\d+', '', x))
 
 # print(df['comment'].head())
 
-train, test = train_test_split(df[:50000], random_state=42, test_size=0.20, shuffle=True)
+train, test = train_test_split(df[:100000], random_state=42, test_size=0.20, shuffle=True)
 
 vectorizer = TfidfVectorizer(sublinear_tf=True, min_df=10, ngram_range=(1,3))
 vectorizer.fit(train['comment'])
@@ -44,8 +44,8 @@ print('scoring')
 score = model.score(x_test, list(y_test))
 print('Accuracy for {} data: {:.4f}'.format('sarcasm', score))
 
-pickle.dump(model, open("models/models_50k.pkl", "wb"))
-pickle.dump(vectorizer, open("models/vectorizer_50k.pkl", "wb"))
+pickle.dump(model, open("models/models_100k.pkl", "wb"))
+pickle.dump(vectorizer, open("models/vectorizer_100k.pkl", "wb"))
 
 sent = "I don’t believe in plastic surgery. But in your case, go ahead"
 vect_sent = vectorizer.transform([sent])
