@@ -26,7 +26,7 @@ df['comment'] = df['comment'].map(lambda x: re.sub(r'\d+\w*|\d+', '', x))
 
 # print(df['comment'].head())
 
-train, test = train_test_split(df[:10000], random_state=42, test_size=0.20, shuffle=True)
+train, test = train_test_split(df[:200000], random_state=42, test_size=0.20, shuffle=True)
 
 vectorizer = TfidfVectorizer(sublinear_tf=True, min_df=10, ngram_range=(1,3))
 vectorizer.fit(train['comment'])
