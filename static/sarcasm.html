@@ -105,7 +105,6 @@
             var chart = null
 
             function invoice_status_chart() {
-                invoice_status_data = invoice_status_data*100;
                 invoice_status_data = Number(Math.round(invoice_status_data+'e2')+'e-2');
                 document.getElementById("myText").innerHTML = invoice_status_data;
             }
@@ -179,6 +178,7 @@
                 $.post("http://127.0.0.1:9875/handle_data", $("#MSG"),
                     function(data, textStatus, jqXHR) {
                         invoice_status_data = JSON.parse(data)
+                        invoice_status_data = invoice_status_data*100
                         invoice_status_chart();
                         document.getElementsByClassName('buttons')[0].style.visibility = 'visible';
                         document.getElementsByClassName('percent')[0].style.visibility = 'visible';

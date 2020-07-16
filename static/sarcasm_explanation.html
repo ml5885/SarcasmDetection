@@ -37089,25 +37089,25 @@
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script></head><body>
-        <div class="lime top_div" id="top_divTHQU9OWTDYNQ09I"></div>
+        <div class="lime top_div" id="top_div0WWOU598ERFQCT3"></div>
         
         <script>
-        var top_div = d3.select('#top_divTHQU9OWTDYNQ09I').classed('lime top_div', true);
+        var top_div = d3.select('#top_div0WWOU598ERFQCT3').classed('lime top_div', true);
         
             var pp_div = top_div.append('div')
                                 .classed('lime predict_proba', true);
             var pp_svg = pp_div.append('svg').style('width', '100%');
-            var pp = new lime.PredictProba(pp_svg, ["Not Sarcasm", "Sarcasm"], [0.24988613827177178, 0.7501138617282282]);
+            var pp = new lime.PredictProba(pp_svg, ["Not Sarcasm", "Sarcasm"], [0.19949156248887037, 0.8005084375111297]);
             
         
         var exp_div;
             var exp = new lime.Explanation(["Not Sarcasm", "Sarcasm"]);
         
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["Yeah", 0.29049826863990563], ["smart", 0.08445445223336424], ["cool", -0.08217060385222155], ["else", 0.07414802730207291], ["sure", 0.04928000611332478], ["am", -0.042417909513659965], ["are", -0.04178231403769974], ["Something", -0.03463612378295658], ["you", -0.013323374017504129], ["is", -0.005912094418822877]], 1, exp_div);
+                exp.show([["Yeah", 0.2679985667937807], ["totally", 0.21403992025103522], ["that", -0.11676697693163442], ["believe", -0.06891457471499973], ["have", -0.02654624445592809], ["you", -0.019942503017331744], ["7", -0.0024669121251746323], ["I", -0.0014288546078305379], ["Ferraris", 0.0004214875237442507]], 1, exp_div);
                 
         var raw_div = top_div.append('div');
-            exp.show_raw_text([["Yeah", 0, 0.29049826863990563], ["smart", 23, 0.08445445223336424], ["cool", 48, -0.08217060385222155], ["else", 40, 0.07414802730207291], ["sure", 10, 0.04928000611332478], ["am", 7, -0.042417909513659965], ["are", 19, -0.04178231403769974], ["Something", 30, -0.03463612378295658], ["you", 15, -0.013323374017504129], ["is", 45, -0.005912094418822877]], 1, "Yeah I am sure you are smart. Something else is cool.", raw_div, true);
+            exp.show_raw_text([["Yeah", 0, 0.2679985667937807], ["totally", 7, 0.21403992025103522], ["that", 23, -0.11676697693163442], ["believe", 15, -0.06891457471499973], ["have", 32, -0.02654624445592809], ["you", 28, -0.019942503017331744], ["7", 37, -0.0024669121251746323], ["I", 5, -0.0014288546078305379], ["Ferraris", 39, 0.0004214875237442507]], 1, "Yeah I totally believe that you have 7 Ferraris.", raw_div, true);
             
         </script>
         </body></html>
