@@ -37089,25 +37089,25 @@
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script></head><body>
-        <div class="lime top_div" id="top_divSI7NB3KXXSEYZZN"></div>
+        <div class="lime top_div" id="top_divTHQU9OWTDYNQ09I"></div>
         
         <script>
-        var top_div = d3.select('#top_divSI7NB3KXXSEYZZN').classed('lime top_div', true);
+        var top_div = d3.select('#top_divTHQU9OWTDYNQ09I').classed('lime top_div', true);
         
             var pp_div = top_div.append('div')
                                 .classed('lime predict_proba', true);
             var pp_svg = pp_div.append('svg').style('width', '100%');
-            var pp = new lime.PredictProba(pp_svg, ["Not Sarcasm", "Sarcasm"], [0.26231312149898345, 0.7376868785010166]);
+            var pp = new lime.PredictProba(pp_svg, ["Not Sarcasm", "Sarcasm"], [0.24988613827177178, 0.7501138617282282]);
             
         
         var exp_div;
             var exp = new lime.Explanation(["Not Sarcasm", "Sarcasm"]);
         
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["Yeah", 0.26507159289974513], ["Hope", -0.11013239338223955], ["right", 0.0972477231432372], ["great", 0.07181668227234948], ["are", -0.061492611483560736], ["sure", 0.04756690739436408], ["you", -0.04387495567884577], ["day", -0.028376253378051212], ["have", -0.003076835000878046], ["a", 0.0007613483389620534]], 1, exp_div);
+                exp.show([["Yeah", 0.29049826863990563], ["smart", 0.08445445223336424], ["cool", -0.08217060385222155], ["else", 0.07414802730207291], ["sure", 0.04928000611332478], ["am", -0.042417909513659965], ["are", -0.04178231403769974], ["Something", -0.03463612378295658], ["you", -0.013323374017504129], ["is", -0.005912094418822877]], 1, exp_div);
                 
         var raw_div = top_div.append('div');
-            exp.show_raw_text([["Yeah", 0, 0.26507159289974513], ["Hope", 26, -0.11013239338223955], ["right", 19, 0.0972477231432372], ["great", 42, 0.07181668227234948], ["are", 15, -0.061492611483560736], ["sure", 6, 0.04756690739436408], ["you", 11, -0.04387495567884577], ["you", 31, -0.04387495567884577], ["day", 48, -0.028376253378051212], ["have", 35, -0.003076835000878046], ["a", 40, 0.0007613483389620534]], 1, "Yeah, sure you are right. Hope you have a great day.", raw_div, true);
+            exp.show_raw_text([["Yeah", 0, 0.29049826863990563], ["smart", 23, 0.08445445223336424], ["cool", 48, -0.08217060385222155], ["else", 40, 0.07414802730207291], ["sure", 10, 0.04928000611332478], ["am", 7, -0.042417909513659965], ["are", 19, -0.04178231403769974], ["Something", 30, -0.03463612378295658], ["you", 15, -0.013323374017504129], ["is", 45, -0.005912094418822877]], 1, "Yeah I am sure you are smart. Something else is cool.", raw_div, true);
             
         </script>
         </body></html>
