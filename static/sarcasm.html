@@ -61,6 +61,13 @@
                 visibility: hidden;
                 margin-top: 7%;
             }
+
+            .percent {
+                visibility: hidden;
+                font-size: 800%;
+                margin-top: 3%;
+                margin-bottom: 3%;
+            }
         </style>
     </head>
     <body>
@@ -77,8 +84,13 @@
             <div class="text-center">
                 <h2>Sarcasm Level</h2>
             </div>
+            <section class="percent text-center">
+                <div onload="invoice_status_chart()">
+                    <h1><span id="myText"></span>%</h1>
+                </div>
+            </section>
             <div id="chartDimensions">
-                <canvas id="myChart" class="text-center" width="100" height="50"></canvas>
+                <canvas id="radarChart" class="text-center" width="100" height="50"></canvas>
             </div>
         </section>
 
@@ -87,77 +99,117 @@
         </section>  
         
         <script>
-          autosize(document.querySelectorAll('textarea'));
+            autosize(document.querySelectorAll('textarea'));
 
-          var invoice_status_data = [0];
-          var chart = null
+            var invoice_status_data = [];
+            var chart = null
 
-          function invoice_status_chart() {
-            var ctx = document.getElementById("myChart");
-            chart = new Chart(ctx, {
-              type: 'bar',
-              data: {
-                  labels: ["Sarcasm"],
-                  datasets: [{
-                      label: 'Percentage of Sarcasm',
-                      data: invoice_status_data,
-                      backgroundColor: [
-                          'rgba(120, 50, 42, 0.2)',
-                      ],
-                      borderColor: [
-                          'rgba(120, 50, 42, 1)',
-                      ],
-                      borderWidth: 1
-                  }]
-              },
-              options: {
-                  legend: {
-                      display: false
-                  },
-                  scales: {
-                      yAxes: [{
-                          scaleLabel: {
-                              display: true,
-                              labelString: 'Percentage'
-                          },
-                          ticks: {
-                              beginAtZero:true,
-                              suggestedMax : 1.0
-                          }
-                      }],
-                  },
-                  animations: {
-                      onProgress: function(animation) {
-                          progress.value = animation.animationObject.currentStep
-                          / animation.animationObject.numSteps;
-                      },
-                      easing: 'easeInBounce'
-                  }
-              }
-            });
-          }
+            function invoice_status_chart() {
+                invoice_status_data = invoice_status_data*100;
+                invoice_status_data = Number(Math.round(invoice_status_data+'e2')+'e-2');
+                document.getElementById("myText").innerHTML = invoice_status_data;
+            }
 
-          function collect_data() {
-            $.post("http://127.0.0.1:9875/handle_data", $("#MSG"),
-                function(data, textStatus, jqXHR) {
-                  invoice_status_data = JSON.parse(data)
-                  invoice_status_chart();
-                  document.getElementsByClassName('buttons')[0].style.visibility = 'visible';
-                }
-              );
+            var labels = [];
+            var dataLabels = [];
+            var posData = [0];
+            var negData = [0];
+            var radar = null  
+
+            function radar_chart() {
+                var i;
+                var max = 0;
+                for(i = 0; i < labels.length; i++){
+                     if(labels[i][1] > 0){
+                        posData[i] = labels[i][1];
+                        negData[i] = 0;
+                     }
+                     else{
+                        negData[i] = (Math.abs(labels[i][1]));
+                        posData[i] = 0;
+                     }
+                     if(max < labels[i][1]){
+                         max = labels[i][1];
+                     }
+                     dataLabels.push(labels[i][0])
+                }  
+                var ctx = document.getElementById("radarChart");    
+                radar = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: dataLabels,
+                        datasets: [{
+                            label: 'Sarcasm',
+                            backgroundColor: 'rgb(242, 77, 41, 0.3)',
+                            pointBorderColor:'rgb(242, 77, 41, 0.3)',
+                            pointRadius: 3,
+                            pointHoverRadius: 7,
+                            data: posData 
+                        },{
+                            label: 'Not Sarcasm',
+                            backgroundColor: 'rgb(8, 93, 164, 0.3)',
+                            pointBorderColor:'rgb(8, 93, 164, 0.3)',
+                            pointRadius: 3,
+                            pointHoverRadius: 7,
+                            data: negData
+                        }]
+                    },
+                    options: {
+                        scale: {
+                            ticks: {
+                                beginAtZero:true,
+                                suggestedMax:max,
+                            },
+                            pointLabels: {
+                                fontSize: 16
+                            }
+                        },
+                        animations: {
+                        onProgress: function(animation) {
+                            progress.value = animation.animationObject.currentStep
+                            / animation.animationObject.numSteps;
+                        },
+                        easing: 'easeInBounce'
+                    }
+                    }
+                });
+            }
+
+            function collect_data() {
+                $.post("http://127.0.0.1:9875/handle_data", $("#MSG"),
+                    function(data, textStatus, jqXHR) {
+                        invoice_status_data = JSON.parse(data)
+                        invoice_status_chart();
+                        document.getElementsByClassName('buttons')[0].style.visibility = 'visible';
+                        document.getElementsByClassName('percent')[0].style.visibility = 'visible';
+                    }
+                );
             };
 
-          $("#Button").click(function() {
+            function collect_labels() {
+                $.post("http://127.0.0.1:9875/radar", $("#MSG"),
+                    function(data){
+                        labels = JSON.parse(data)
+                        radar_chart();
+                        document.getElementsByClassName('buttons')[0].style.visibility = 'visible';
+                        document.getElementsByClassName('percent')[0].style.visibility = 'visible';
+                    }
+                );
+            };  
+
+            $("#Button").click(function() {
             if (chart != null) {
-              chart.destroy();
+                chart.destroy();
+
             }
             collect_data();
-          });
+            collect_labels();
+            });
 
-          jQuery(document).ready(function($) {
+            jQuery(document).ready(function($) {
             jQuery(window).resize(invoice_status_chart);
             invoice_status_chart();
-          });
+            });
 
         </script>
     </body>
