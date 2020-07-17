@@ -16,7 +16,7 @@ import pickle
 import re
 import string
 
-filepath = '/Users/michaelli/Desktop/Stance/train-balanced-sarcasm.csv'
+filepath = 'D:\mohsin\Sarcasm Model\Sarcastic Comments/train-balanced-sarcasm.csv'
 df = pd.read_csv(filepath)
 df = df.drop(columns=['author','subreddit','score','ups','downs','date','created_utc','parent_comment'])
 df.dropna(inplace=True)
@@ -26,7 +26,7 @@ df['comment'] = df['comment'].map(lambda x: re.sub(r'\d+\w*|\d+', '', x))
 
 # print(df['comment'].head())
 
-train, test = train_test_split(df[:20000], random_state=42, test_size=0.20, shuffle=True)
+train, test = train_test_split(df[:200000], random_state=42, test_size=0.20, shuffle=True)
 
 vectorizer = TfidfVectorizer(sublinear_tf=True, min_df=10, ngram_range=(1,3))
 vectorizer.fit(train['comment'])
